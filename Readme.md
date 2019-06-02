@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Tanya Elmus](https://up.htmlacademy.ru/javascript/17/user/861207).
-* Наставник: `Неизвестно`.
+* Наставник: [Dmitry Myroshnychenko](https://htmlacademy.ru/profile/id591417).
 
 ---
 
