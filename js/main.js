@@ -8,53 +8,54 @@ var PHOTO_COMMENTS = ['Всё отлично!',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-var NAMES = ['Вася', 'Петя', 'Алина', 'Таня'];
+var NAMES = ['Лера', 'Артем', 'Максим', 'Таня'];
 var NUMBER_OF_PICTURE = 25;
 
 var generateNumber = function (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
 };
 
-var getData = function (images) {
-    var images = [];
+var getData = function () {
+  var images = [];
 
-    for (var i = 0; i < NUMBER_OF_PICTURE; i++) {
-      images[i] = {
-        url: 'photos/' + (i + 1) + '.jpg',
-        likes: generateNumber (max, min),
-        comments: []
-      };
+  for (var i = 0; i < NUMBER_OF_PICTURE; i++) {
+    images[i] = {
+      url: 'photos/' + (i + 1) + '.jpg',
+      likes: generateNumber(15, 200),
+      comments: []
+    };
 
-      for (var j = 0; j < generateNumber(0,2); j++) {
-        images[i].comments.push({
-          avatar: 'img/avatar-' + generateNumber(0, 7) + '.svg',
-          message: PHOTO_COMMENTS[generateNumber(0, 7)],
-          name: NAMES[generateNumber(0,4)]
-        });
-        return images;
-      };
+    for (var j = 0; j < generateNumber(0, 1); j++) {
+      images[i].comments.push({
+        avatar: 'img/avatar-' + generateNumber(1, 6) + '.svg',
+        message: PHOTO_COMMENTS[generateNumber(0, 5)],
+        name: NAMES[generateNumber(0, 3)]
+      });
     }
+  }
+  return images;
+};
 
-    var pictureTemplate = document.querySelector('#picture')
-      .content
-      .querySelector('.picture');
+var pictureTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
 
-    var renderPicture = function (picture) {
-      var pictureElement = pictureTemplate.cloneNode(true);
+var renderPicture = function (picture) {
+  var pictureElement = pictureTemplate.cloneNode(true);
 
-      pictureElement.querySelector('img').src = picture.url;
-      pictureElement.querySelector('.picture__likes').textContent = picture.likes;
-      pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
-      return pictureElement;
-    };
+  pictureElement.querySelector('img').src = picture.url;
+  pictureElement.querySelector('.picture__likes').textContent = picture.likes;
+  pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
+  return pictureElement;
+};
 
-    function createFragment(images) {
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < images.length; i++) {
-        fragment.appendChild(renderPicture(images[i]));
-      }
+function createFragment(images) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < images.length; i++) {
+    fragment.appendChild(renderPicture(images[i]));
+  }
 
-      pictureWrapper.appendChild(fragment);
+  pictureWrapper.appendChild(fragment);
+}
 
-    };
-    createFragment(images);
+createFragment(getData());
