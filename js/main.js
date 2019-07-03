@@ -59,3 +59,74 @@ function createFragment(images) {
 }
 
 createFragment(getData());
+
+var effects = {
+  heat: {
+    effect: 'brightness',
+    maxvalue: 3,
+    minvalue: 1,
+    points: ''
+  },
+  chrome: {
+    effect: 'grayscale',
+    maxvalue: 1,
+    minvalue: 0,
+    points: ''
+  },
+  sepia: {
+    effect: 'sepia',
+    maxvalue: 1,
+    minvalue: 0,
+    points: ''
+  },
+  marvin: {
+    effect: 'invert',
+    maxvalue: 100,
+    minvalue: 0,
+    points: '%'
+  },
+  phobos: {
+    effect: 'blur',
+    maxvalue: 3,
+    minvalue: 1,
+    points: 'px'
+  },
+  none: null
+};
+
+var uploadFile = document.querySelector('#upload-file');
+var imgUploadOverlay = document.querySelector('.img-upload__overlay');
+var imgUploadCancel = document.querySelector('.img-upload__cancel');
+var effectLevelPin = document.querySelector('.effect-level__pin');
+var imgUploadPreview = document.querySelector('.img-upload__preview');
+
+var effectLine = document.querySelector('.effect-level__line');
+var effectsRadio = document.querySelectorAll('.effects__radio');
+effectsRadio.forEach(function (item) {
+  item.addEventListener('change', function (evt) {
+    var currentFilter = effects[evt.currentTarget.value];
+    if (currentFilter) {
+      imgUploadPreview.style.filter = currentFilter.effect + '(' + currentFilter.maxvalue + currentFilter.points + ')';
+    } else {
+      imgUploadPreview.style.filter = null;
+    }
+  });
+});
+
+uploadFile.addEventListener('change', function () {
+  imgUploadOverlay.classList.remove('hidden');
+});
+
+imgUploadCancel.addEventListener('click', function () {
+  imgUploadOverlay.classList.add('hidden');
+  uploadFile = '';
+});
+
+effectLevelPin.addEventListener('mouseup', function (evt) {
+  var lineRect = effectLine.getBoundingClientRect();
+  var sliderOffset = evt.clientX - lineRect.x;
+  var lineValue = sliderOffset / lineRect.width;
+  var currentFilterInput = document.querySelector('.effects__radio:checked');
+  var currentFilter = effects[currentFilterInput.value];
+  imgUploadPreview.style.filter = currentFilter.effect + '(' + currentFilter.maxvalue * lineValue + currentFilter.points + ')';
+});
