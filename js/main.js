@@ -60,6 +60,8 @@ function createFragment(images) {
 
 createFragment(getData());
 
+
+// эффекты
 var effects = {
   heat: {
     effect: 'brightness',
