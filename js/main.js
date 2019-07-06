@@ -94,39 +94,64 @@ var effects = {
   none: null
 };
 
+var ESC_KEYCODE = 27;
 var uploadFile = document.querySelector('#upload-file');
 var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = document.querySelector('.img-upload__cancel');
 var effectLevelPin = document.querySelector('.effect-level__pin');
 var imgUploadPreview = document.querySelector('.img-upload__preview');
-
 var effectLine = document.querySelector('.effect-level__line');
-var effectsRadio = document.querySelectorAll('.effects__radio');
-effectsRadio.forEach(function (item) {
-  item.addEventListener('change', function (evt) {
-    var currentFilter = effects[evt.currentTarget.value];
-    if (currentFilter) {
-      imgUploadPreview.style.filter = currentFilter.effect + '(' + currentFilter.maxvalue + currentFilter.points + ')';
-    } else {
-      imgUploadPreview.style.filter = null;
-    }
-  });
+var effectsItem = document.querySelector('.effects');
+
+// функция возвращающая строчку для эффекта css
+var createEffect = function (lineValue, currentFilter) {
+  return currentFilter.effect + '(' + currentFilter.maxvalue * lineValue + currentFilter.points + ')';
+};
+
+// переключалка между эффектами
+effectsItem.addEventListener('change', function (evt) {
+  var currentFilter = effects[evt.target.value];
+  if (currentFilter) {
+    imgUploadPreview.style.filter = createEffect(1, currentFilter);
+  } else {
+    imgUploadPreview.style.filter = null;
+  }
 });
 
+// проверяет нажатие ESC
+var checkEscape = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    imgUploadOverlay.classList.add('hidden');
+  }
+};
+
+// открывает окно
 uploadFile.addEventListener('change', function () {
   imgUploadOverlay.classList.remove('hidden');
+  document.addEventListener('keydown', checkEscape);
 });
 
+// при нажатии на крестик закрывает окно
 imgUploadCancel.addEventListener('click', function () {
   imgUploadOverlay.classList.add('hidden');
   uploadFile = '';
 });
 
+// применяет эффект относительно положения ползунка
 effectLevelPin.addEventListener('mouseup', function (evt) {
+  var currentFilterInput = document.querySelector('.effects__radio:checked');
   var lineRect = effectLine.getBoundingClientRect();
   var sliderOffset = evt.clientX - lineRect.x;
   var lineValue = sliderOffset / lineRect.width;
-  var currentFilterInput = document.querySelector('.effects__radio:checked');
   var currentFilter = effects[currentFilterInput.value];
-  imgUploadPreview.style.filter = currentFilter.effect + '(' + currentFilter.maxvalue * lineValue + currentFilter.points + ')';
+  imgUploadPreview.style.filter = createEffect(lineValue, currentFilter);
+});
+
+// отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария
+var textDescription = document.querySelector('.text__description');
+textDescription.addEventListener('focus', function () {
+  document.removeEventListener('keydown', checkEscape);
+});
+textDescription.addEventListener('blur', function () {
+  document.addEventListener('keydown', checkEscape);
 });
