@@ -104,6 +104,7 @@ var effectLevelPin = document.querySelector('.effect-level__pin');
 var imgUploadPreview = document.querySelector('.img-upload__preview');
 var effectLine = document.querySelector('.effect-level__line');
 var effectsItem = document.querySelector('.effects');
+var textDescription = document.querySelector('.text__description');
 
 // функция возвращающая строчку для эффекта css
 var createEffect = function (lineValue, currentFilter) {
@@ -147,13 +148,58 @@ effectLevelPin.addEventListener('mouseup', function (evt) {
   var lineValue = sliderOffset / lineRect.width;
   var currentFilter = effects[currentFilterInput.value];
   imgUploadPreview.style.filter = createEffect(lineValue, currentFilter);
+  console.log(lineRect);
 });
 
 // отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария
-var textDescription = document.querySelector('.text__description');
 textDescription.addEventListener('focus', function () {
   document.removeEventListener('keydown', checkEscape);
 });
 textDescription.addEventListener('blur', function () {
   document.addEventListener('keydown', checkEscape);
+});
+
+// перемещение ползунка
+effectLevelPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX
+  };
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    var lineRect = effectLine.getBoundingClientRect();
+    var effectLineDepth = document.querySelector('.effect-level__depth');
+    var effectLineDepthRect = effectLineDepth.getBoundingClientRect();
+    var shift = {
+      x: startCoords.x - moveEvt.clientX
+    };
+
+    startCoords = {
+      x: moveEvt.clientX
+    };
+    // как сделать,чтобы желтая полоска двигалась за ползенком,а не впереди него?
+
+    if (moveEvt.clientX <= lineRect.x) {
+      effectLevelPin.style.left = lineRect.offsetLeft + 'px';
+      effectLineDepth.style.width = (effectLineDepthRect.width - shift.x) + 'px';
+    } else
+    // (moveEvt.clientX >= (lineRect.x + lineRect.width) {
+    //  effectLevelPin.style.left = lineRect.offsetLeft + 'px';
+    //  effectLineDepth.style.width = (effectLineDepthRect.width - shift.x) + 'px';
+    {
+      effectLevelPin.style.left = (effectLevelPin.offsetLeft - shift.x) + 'px';
+      effectLineDepth.style.width = (effectLineDepthRect.width - shift.x) + 'px';
+    }
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
