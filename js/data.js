@@ -3,17 +3,9 @@
 (function () {
   // переменные  для данных миниатюр
   var pictureWrapper = document.querySelector('.pictures');
-  // var PHOTO_COMMENTS = ['Всё отлично!',
-  //   'В целом всё неплохо. Но не всё.',
-  //   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  //   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  //   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  //   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-  // ];
-  // var NAMES = ['Лера', 'Артем', 'Максим', 'Таня'];
-  // var NUMBER_OF_PICTURE = 25;
 
   // переменные для формы редактирования фотографии и применения эффектов
+  var SUCCESS_CODE = 200;
   var ESC_KEYCODE = 27;
   var effectLineDepth = document.querySelector('.effect-level__depth');
   var uploadFile = document.querySelector('#upload-file');
@@ -64,11 +56,7 @@
 
   window.data = {
     pictureWrapper: pictureWrapper,
-    // NAMES: NAMES,
-    // PHOTO_COMMENTS: PHOTO_COMMENTS,
-    // NUMBER_OF_PICTURE: NUMBER_OF_PICTURE,
-    // generateNumber: generateNumber,
-    // getData: getData,
+    SUCCESS_CODE: SUCCESS_CODE,
     ESC_KEYCODE: ESC_KEYCODE,
     effectLineDepth: effectLineDepth,
     uploadFile: uploadFile,
