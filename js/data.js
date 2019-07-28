@@ -24,6 +24,8 @@
   var effectLine = document.querySelector('.effect-level__line');
   var effectsItem = document.querySelector('.effects');
   var textDescription = document.querySelector('.text__description');
+  var imgFilters = document.querySelector('.img-filters');
+  var imagesCopy = [];
 
   // массив css-эффектов
   var effects = {
@@ -60,33 +62,6 @@
     none: null
   };
 
-  // генерация случайных чисел
-  // var generateNumber = function (min, max) {
-  //   return Math.floor(Math.random() * (max + 1 - min)) + min;
-  // };
-
-  // функция загружающая лайки и комменты
-  // var getData = function () {
-  //   var images = [];
-
-  //   for (var i = 0; i < NUMBER_OF_PICTURE; i++) {
-  //     images[i] = {
-  //       url: 'photos/' + (i + 1) + '.jpg',
-  //       likes: generateNumber(15, 200),
-  //       comments: []
-  //     };
-
-  //     for (var j = 0; j < generateNumber(0, 1); j++) {
-  //       images[i].comments.push({
-  //         avatar: 'img/avatar-' + generateNumber(1, 6) + '.svg',
-  //         message: PHOTO_COMMENTS[generateNumber(0, 5)],
-  //         name: NAMES[generateNumber(0, 3)]
-  //       });
-  //     }
-  //   }
-  //   return images;
-  // };
-
   window.data = {
     pictureWrapper: pictureWrapper,
     // NAMES: NAMES,
@@ -104,6 +79,8 @@
     effectLine: effectLine,
     effectsItem: effectsItem,
     textDescription: textDescription,
-    effects: effects
+    effects: effects,
+    imgFilters: imgFilters,
+    imagesCopy: imagesCopy
   };
 })();
