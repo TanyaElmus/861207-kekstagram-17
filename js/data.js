@@ -3,17 +3,9 @@
 (function () {
   // переменные  для данных миниатюр
   var pictureWrapper = document.querySelector('.pictures');
-  // var PHOTO_COMMENTS = ['Всё отлично!',
-  //   'В целом всё неплохо. Но не всё.',
-  //   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  //   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  //   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  //   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-  // ];
-  // var NAMES = ['Лера', 'Артем', 'Максим', 'Таня'];
-  // var NUMBER_OF_PICTURE = 25;
 
   // переменные для формы редактирования фотографии и применения эффектов
+  var SUCCESS_CODE = 200;
   var ESC_KEYCODE = 27;
   var effectLineDepth = document.querySelector('.effect-level__depth');
   var uploadFile = document.querySelector('#upload-file');
@@ -24,6 +16,8 @@
   var effectLine = document.querySelector('.effect-level__line');
   var effectsItem = document.querySelector('.effects');
   var textDescription = document.querySelector('.text__description');
+  var imgFilters = document.querySelector('.img-filters');
+  var imagesCopy = [];
 
   // массив css-эффектов
   var effects = {
@@ -60,40 +54,9 @@
     none: null
   };
 
-  // генерация случайных чисел
-  // var generateNumber = function (min, max) {
-  //   return Math.floor(Math.random() * (max + 1 - min)) + min;
-  // };
-
-  // функция загружающая лайки и комменты
-  // var getData = function () {
-  //   var images = [];
-
-  //   for (var i = 0; i < NUMBER_OF_PICTURE; i++) {
-  //     images[i] = {
-  //       url: 'photos/' + (i + 1) + '.jpg',
-  //       likes: generateNumber(15, 200),
-  //       comments: []
-  //     };
-
-  //     for (var j = 0; j < generateNumber(0, 1); j++) {
-  //       images[i].comments.push({
-  //         avatar: 'img/avatar-' + generateNumber(1, 6) + '.svg',
-  //         message: PHOTO_COMMENTS[generateNumber(0, 5)],
-  //         name: NAMES[generateNumber(0, 3)]
-  //       });
-  //     }
-  //   }
-  //   return images;
-  // };
-
   window.data = {
     pictureWrapper: pictureWrapper,
-    // NAMES: NAMES,
-    // PHOTO_COMMENTS: PHOTO_COMMENTS,
-    // NUMBER_OF_PICTURE: NUMBER_OF_PICTURE,
-    // generateNumber: generateNumber,
-    // getData: getData,
+    SUCCESS_CODE: SUCCESS_CODE,
     ESC_KEYCODE: ESC_KEYCODE,
     effectLineDepth: effectLineDepth,
     uploadFile: uploadFile,
@@ -104,6 +67,8 @@
     effectLine: effectLine,
     effectsItem: effectsItem,
     textDescription: textDescription,
-    effects: effects
+    effects: effects,
+    imgFilters: imgFilters,
+    imagesCopy: imagesCopy
   };
 })();

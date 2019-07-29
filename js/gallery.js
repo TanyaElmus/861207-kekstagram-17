@@ -5,10 +5,9 @@
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
-
+  var imagesCopy = [];
   var renderPicture = function (picture) {
     var pictureElement = pictureTemplate.cloneNode(true);
-
     pictureElement.querySelector('img').src = picture.url;
     pictureElement.querySelector('.picture__likes').textContent = picture.likes;
     pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
@@ -16,16 +15,23 @@
   };
 
   var createFragment = function (images) {
+    var allImgs = document.querySelectorAll('.picture');
+    allImgs.forEach(function (item) {
+      item.remove();
+    });
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < images.length; i++) {
       fragment.appendChild(renderPicture(images[i]));
     }
-
     window.data.pictureWrapper.appendChild(fragment);
   };
 
-  // createFragment(window.data.getData());
-
+  var success = function (images) {
+    images.forEach(function (item) {
+      imagesCopy.push(item);
+    });
+    createFragment(images);
+  };
 
   var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
@@ -34,10 +40,14 @@
     node.style.left = 0;
     node.style.right = 0;
     node.style.fontSize = '20px';
-
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.load(createFragment, errorHandler);
+  window.load(success, errorHandler);
+  window.data.imgFilters.classList.remove('img-filters--inactive');
+  window.gallery = {
+    imagesCopy: imagesCopy,
+    createFragment: createFragment
+  };
 })();
