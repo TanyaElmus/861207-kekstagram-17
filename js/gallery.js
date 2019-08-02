@@ -48,6 +48,7 @@
   window.data.imgFilters.classList.remove('img-filters--inactive');
   window.gallery = {
     imagesCopy: imagesCopy,
-    createFragment: createFragment
+    createFragment: createFragment,
+    errorHandler: errorHandler
   };
 })();
