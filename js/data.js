@@ -53,7 +53,7 @@
     },
     none: null
   };
-
+  var hashtagField = document.querySelector('.text__hashtags');
   window.data = {
     pictureWrapper: pictureWrapper,
     SUCCESS_CODE: SUCCESS_CODE,
@@ -69,6 +69,7 @@
     textDescription: textDescription,
     effects: effects,
     imgFilters: imgFilters,
-    imagesCopy: imagesCopy
+    imagesCopy: imagesCopy,
+    hashtagField: hashtagField
   };
 })();

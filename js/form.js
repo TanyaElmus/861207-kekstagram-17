@@ -26,4 +26,10 @@
   window.data.textDescription.addEventListener('blur', function () {
     document.addEventListener('keydown', checkEscape);
   });
+  window.data.hashtagField.addEventListener('focus', function () {
+    document.removeEventListener('keydown', checkEscape);
+  });
+  window.data.hashtagField.addEventListener('blur', function () {
+    document.addEventListener('keydown', checkEscape);
+  });
 })();
