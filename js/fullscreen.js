@@ -1,52 +1,53 @@
 'use strict';
 
 (function () {
-  var generateNumber = function (min, max) {
-    return Math.floor(Math.random() * (max + 1 - min)) + min;
+  var index;
+  var bigPicture = document.querySelector('.big-picture');
+  var social = bigPicture.querySelector('.big-picture__social');
+  var commentTemplate = social.querySelector('.social__comment');
+
+  // вывод комментария
+  var renderComment = function (comment) {
+    var commentElement = commentTemplate.cloneNode(true);
+    var picture = commentElement.querySelector('.social__picture');
+    picture.src = comment.avatar;
+    picture.alt = comment.name;
+    commentElement.querySelector('.social__text').textContent = comment.message;
+    return commentElement;
   };
 
-  var renderCart = function (images) {
-    var bigPicture = document.querySelector('.big-picture');
-    var social = bigPicture.querySelector('.big-picture__social');
+  var createComment = function (comments) {
+    var comment = document.createDocumentFragment();
+    comments.forEach(function (item) {
+      comment.appendChild(renderComment(item));
+    });
+    var allComments = document.querySelectorAll('.social__comment');
+    allComments.forEach(function (item) {
+      item.remove();
+    });
+    social.querySelector('.social__comments').appendChild(comment);
+  };
+
+  // слушатель нажатия на картинку и получение ее номера и показ окна для полноэкранного просмотра
+  var pictures = document.querySelector('.pictures');
+  pictures.addEventListener('click', function (evt) {
+    var currentImageAdress = evt.target.src.slice(-6, -1);
+    var currentImageNumber = Number(currentImageAdress.replace(/\D+/g, ''));
+    window.load(renderCart, window.gallery.errorHandler);
     bigPicture.classList.remove('hidden');
+    index = currentImageNumber;
+  });
 
-    bigPicture.querySelector('img').src = images[0].url;
-    social.querySelector('.likes-count').textContent = images[0].likes;
-    social.querySelector('.comments-count').textContent = images[0].comments.length;
-    // ------------------------------------------------
-
-    //  var comments = social.querySelectorAll('.social__comments');
-    var commentTemplate = social.querySelector('.social__comment').querySelector('.social__comment');
-    var renderComment = function () {
-      var commentElement = commentTemplate.cloneNode(true);
-
-      commentElement.querySelector('.social__picture').src = 'img/avatar-' + generateNumber(1, 6) + '.svg';
-
-      return commentElement;
-    };
-    var createComment = function (comments) {
-      var allComments = document.querySelectorAll('.social__comment');
-      allComments.forEach(function (item) {
-        item.remove();
-      });
-      var comment = comments.createDocumentFragment();
-      images[0].comments.forEach(function (item) {
-
-        comment.appendChild(renderComment(item));
-        item.querySelector('.social__comment').textContent = images[0].comments[0].message;
-      });
-      social.querySelector('.social__comments').appendChild(comment);
-    };
-    createComment(images[0].comments);
-
-    //  --------------------------------------------------------
-    social.querySelector('.social__caption').textContent = images[0].description;
+  //  вывод текстовых данных(лайков, количества комментариев, описания) картинки
+  var renderCart = function (images) {
+    bigPicture.querySelector('img').src = images[index - 1].url;
+    social.querySelector('.likes-count').textContent = images[index - 1].likes;
+    social.querySelector('.comments-count').textContent = images[index - 1].comments.length;
+    createComment(images[index - 1].comments);
+    social.querySelector('.social__caption').textContent = images[index - 1].description;
     social.querySelector('.social__comment-count').classList.add('hidden');
-    console.log(social.querySelector('.comments-loader'));
     social.querySelector('.comments-loader').classList.add('hidden');
 
-
-    //  ----------------------------------------------
     var cancelButton = bigPicture.querySelector('#picture-cancel');
     var overlay = document.querySelector('.overlay');
     cancelButton.addEventListener('click', function () {
@@ -59,6 +60,4 @@
     };
     document.addEventListener('keydown', checkEscape);
   };
-  window.load(renderCart, window.gallery.errorHandler);
-
 })();
