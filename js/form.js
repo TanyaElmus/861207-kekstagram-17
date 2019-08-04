@@ -19,7 +19,7 @@
     window.data.uploadFile = '';
   });
 
-  // отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария
+  // отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария и хэштэгов
   window.data.textDescription.addEventListener('focus', function () {
     document.removeEventListener('keydown', checkEscape);
   });
@@ -40,4 +40,30 @@
     });
     evt.preventDefault();
   });
+
+  window.openServiceMessage = function (item) {
+    var successTemplate = document.querySelector('#' + item)
+      .content
+      .querySelector('.' + item);
+    var renderSuccess = function () {
+      var successElement = successTemplate.cloneNode(true);
+      return successElement;
+    };
+    var success = document.createDocumentFragment();
+    success.appendChild(renderSuccess());
+    window.data.mainElement.appendChild(success);
+    var successButton = document.querySelector('.' + item + '__button');
+    successButton.addEventListener('click', function () {
+      window.data.mainElement.querySelector('.' + item).remove('hidden');
+    });
+    var checkEscapeService = function (evt) {
+      if (evt.keyCode === window.data.ESC_KEYCODE) {
+        window.data.mainElement.querySelector('.' + item).remove('hidden');
+      }
+    };
+    document.addEventListener('keydown', checkEscapeService);
+    document.addEventListener('click', function () {
+      window.data.mainElement.querySelector('.' + item).remove('hidden');
+    });
+  };
 })();

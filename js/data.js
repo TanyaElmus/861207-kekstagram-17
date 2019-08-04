@@ -20,6 +20,7 @@
   var imgFilters = document.querySelector('.img-filters');
   var imagesCopy = [];
   var imgUploadForm = document.querySelector('.img-upload__form');
+  var mainElement = document.querySelector('main');
   // массив css-эффектов
   var effects = {
     heat: {
@@ -72,6 +73,7 @@
     imgFilters: imgFilters,
     imagesCopy: imagesCopy,
     hashtagField: hashtagField,
-    imgUploadForm: imgUploadForm
+    imgUploadForm: imgUploadForm,
+    mainElement: mainElement
   };
 })();

@@ -46,7 +46,7 @@
     createComment(images[index - 1].comments);
     social.querySelector('.social__caption').textContent = images[index - 1].description;
     social.querySelector('.social__comment-count').classList.add('hidden');
-    social.querySelector('.comments-loader').classList.add('hidden');
+    // social.querySelector('.comments-loader').classList.add('hidden');
 
     var cancelButton = bigPicture.querySelector('#picture-cancel');
     var overlay = document.querySelector('.overlay');

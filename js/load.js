@@ -10,7 +10,7 @@
 
 (function () {
   var URL = 'https://js.dump.academy/kekstagram/data';
-
+  // var mainElement = document.querySelector('main');
   window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -45,18 +45,23 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === window.data.SUCCESS_CODE) {
         onSuccess(xhr.response);
-        var successTemplate = document.querySelector('#success')
-          .content
-          .querySelector('.success');
-        var renderSuccess = function () {
-          var successElement = successTemplate.cloneNode(true);
-          return successElement;
-        };
-        var success = document.createDocumentFragment()
-        success.appendChild(renderSuccess());
-
+        // var successTemplate = document.querySelector('#success')
+        //   .content
+        //   .querySelector('.success');
+        // var renderSuccess = function () {
+        //   var successElement = successTemplate.cloneNode(true);
+        //   return successElement;
+        // };
+        // var success = document.createDocumentFragment();
+        // success.appendChild(renderSuccess());
+        // mainElement.appendChild(success);
+        window.openServiceMessage('success');
+        window.data.imgUploadForm.reset();
       } else {
         // onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        window.data.imgUploadForm.classList.add('hidden');
+        window.openServiceMessage('error');
+        // document.querySelector('.success').remove('hidden');
       }
     });
 
