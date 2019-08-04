@@ -26,4 +26,18 @@
   window.data.textDescription.addEventListener('blur', function () {
     document.addEventListener('keydown', checkEscape);
   });
+  window.data.hashtagField.addEventListener('focus', function () {
+    document.removeEventListener('keydown', checkEscape);
+  });
+  window.data.hashtagField.addEventListener('blur', function () {
+    document.addEventListener('keydown', checkEscape);
+  });
+
+  var form = window.data.imgUploadForm;
+  form.addEventListener('submit', function (evt) {
+    window.upload(new FormData(form), function (response) {
+      window.data.imgUploadForm.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
 })();

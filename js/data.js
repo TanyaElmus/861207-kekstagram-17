@@ -15,10 +15,11 @@
   var imgUploadPreview = document.querySelector('.img-upload__preview');
   var effectLine = document.querySelector('.effect-level__line');
   var effectsItem = document.querySelector('.effects');
+  var hashtagField = document.querySelector('.text__hashtags');
   var textDescription = document.querySelector('.text__description');
   var imgFilters = document.querySelector('.img-filters');
   var imagesCopy = [];
-
+  var imgUploadForm = document.querySelector('.img-upload__form');
   // массив css-эффектов
   var effects = {
     heat: {
@@ -69,6 +70,8 @@
     textDescription: textDescription,
     effects: effects,
     imgFilters: imgFilters,
-    imagesCopy: imagesCopy
+    imagesCopy: imagesCopy,
+    hashtagField: hashtagField,
+    imgUploadForm: imgUploadForm
   };
 })();
