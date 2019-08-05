@@ -11,6 +11,9 @@
     pictureElement.querySelector('img').src = picture.url;
     pictureElement.querySelector('.picture__likes').textContent = picture.likes;
     pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
+    pictureElement.addEventListener('click', function () {
+      window.fullscreen.renderCart(picture);
+    });
     return pictureElement;
   };
 

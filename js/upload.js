@@ -4,8 +4,6 @@
 
   var fileChooser = document.querySelector('#upload-file[type=file]');
   var preview = document.querySelector('.img-upload__preview');
-  console.log(preview);
-
   fileChooser.addEventListener('change', function () {
     var file = fileChooser.files[0];
     var fileName = file.name.toLowerCase();
@@ -24,5 +22,4 @@
       reader.readAsDataURL(file);
     }
   });
-  console.log(fileChooser);
 })();
