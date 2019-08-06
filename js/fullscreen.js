@@ -1,9 +1,10 @@
 'use strict';
 
 (function () {
-  var index;
+
   var bigPicture = document.querySelector('.big-picture');
   var social = bigPicture.querySelector('.big-picture__social');
+  var showMoreButton = social.querySelector('.comments-loader');
   var commentTemplate = social.querySelector('.social__comment');
 
   // вывод комментария
@@ -16,7 +17,8 @@
     return commentElement;
   };
 
-  var createComment = function (comments) {
+  //  создание комментария
+  var createComment = function (comments, commentsNumber) {
     var comment = document.createDocumentFragment();
     comments.forEach(function (item) {
       comment.appendChild(renderComment(item));
@@ -26,28 +28,36 @@
       item.remove();
     });
     social.querySelector('.social__comments').appendChild(comment);
+
+    // счетчик показа комментариев
+    social.querySelector('.social__comment-count').childNodes[0].nodeValue = commentsNumber + ' из ';
   };
 
-  // слушатель нажатия на картинку и получение ее номера и показ окна для полноэкранного просмотра
-  var pictures = document.querySelector('.pictures');
-  pictures.addEventListener('click', function (evt) {
-    var currentImageAdress = evt.target.src.slice(-6, -1);
-    var currentImageNumber = Number(currentImageAdress.replace(/\D+/g, ''));
-    window.load(renderCart, window.gallery.errorHandler);
-    bigPicture.classList.remove('hidden');
-    index = currentImageNumber;
-  });
+  var loadComments = function (comments) {
+    var commentsCount = 0;
+    return function () {
+      commentsCount += 5;
+      commentsCount = Math.min(commentsCount, comments.length);
+      if (commentsCount === comments.length) {
+        showMoreButton.classList.add('hidden');
+      }
+      createComment(comments.slice(0, commentsCount), commentsCount);
+    };
+  };
 
-  //  вывод текстовых данных(лайков, количества комментариев, описания) картинки
-  var renderCart = function (images) {
-    bigPicture.querySelector('img').src = images[index - 1].url;
-    social.querySelector('.likes-count').textContent = images[index - 1].likes;
-    social.querySelector('.comments-count').textContent = images[index - 1].comments.length;
-    createComment(images[index - 1].comments);
-    social.querySelector('.social__caption').textContent = images[index - 1].description;
-    social.querySelector('.social__comment-count').classList.add('hidden');
-    social.querySelector('.comments-loader').classList.add('hidden');
+  //  вывод текстовых данных(лайков, количества комментариев, описания, картинки
+  var renderCart = function (image) {
+    bigPicture.querySelector('img').src = image.url;
+    social.querySelector('.likes-count').textContent = image.likes;
+    social.querySelector('.comments-count').textContent = image.comments.length;
+    showMoreButton.classList.remove('hidden');
+    var showMoreComments = loadComments(image.comments);
+    showMoreComments();
+    showMoreButton.addEventListener('click', function () {
+      showMoreComments();
+    });
 
+    // кнопка выходы из полноэкранного просмотра
     var cancelButton = bigPicture.querySelector('#picture-cancel');
     var overlay = document.querySelector('.overlay');
     cancelButton.addEventListener('click', function () {
@@ -59,5 +69,9 @@
       }
     };
     document.addEventListener('keydown', checkEscape);
+    bigPicture.classList.remove('hidden');
+  };
+  window.fullscreen = {
+    renderCart: renderCart
   };
 })();

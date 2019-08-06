@@ -1,5 +1,7 @@
 'use strict';
+
 (function () {
+
   // проверяет нажатие ESC
   var checkEscape = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {
@@ -19,11 +21,51 @@
     window.data.uploadFile = '';
   });
 
-  // отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария
+  // отключает закрытие окна при нажатии кнопки ESC при фокусе на поле ввода комментария и хэштэгов
   window.data.textDescription.addEventListener('focus', function () {
     document.removeEventListener('keydown', checkEscape);
   });
   window.data.textDescription.addEventListener('blur', function () {
     document.addEventListener('keydown', checkEscape);
   });
+  window.data.hashtagField.addEventListener('focus', function () {
+    document.removeEventListener('keydown', checkEscape);
+  });
+  window.data.hashtagField.addEventListener('blur', function () {
+    document.addEventListener('keydown', checkEscape);
+  });
+
+  var form = window.data.imgUploadForm;
+  form.addEventListener('submit', function (evt) {
+    window.upload(new FormData(form), function (response) {
+      window.data.imgUploadForm.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
+
+  window.openServiceMessage = function (item) {
+    var successTemplate = document.querySelector('#' + item)
+      .content
+      .querySelector('.' + item);
+    var renderSuccess = function () {
+      var successElement = successTemplate.cloneNode(true);
+      return successElement;
+    };
+    var success = document.createDocumentFragment();
+    success.appendChild(renderSuccess());
+    window.data.mainElement.appendChild(success);
+    var successButton = document.querySelector('.' + item + '__button');
+    successButton.addEventListener('click', function () {
+      window.data.mainElement.querySelector('.' + item).remove('hidden');
+    });
+    var checkEscapeService = function (evt) {
+      if (evt.keyCode === window.data.ESC_KEYCODE) {
+        window.data.mainElement.querySelector('.' + item).remove('hidden');
+      }
+    };
+    document.addEventListener('keydown', checkEscapeService);
+    document.addEventListener('click', function () {
+      window.data.mainElement.querySelector('.' + item).remove('hidden');
+    });
+  };
 })();
