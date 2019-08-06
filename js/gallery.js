@@ -2,6 +2,7 @@
 
 // вывод картинок, комеентарие и лайков
 (function () {
+
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');

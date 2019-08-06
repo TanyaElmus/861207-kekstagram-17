@@ -1,5 +1,7 @@
 'use strict';
+
 (function () {
+
   // проверяет нажатие ESC
   var checkEscape = function (evt) {
     if (evt.keyCode === window.data.ESC_KEYCODE) {

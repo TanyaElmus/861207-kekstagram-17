@@ -21,6 +21,7 @@
   var imagesCopy = [];
   var imgUploadForm = document.querySelector('.img-upload__form');
   var mainElement = document.querySelector('main');
+
   // массив css-эффектов
   var effects = {
     heat: {
