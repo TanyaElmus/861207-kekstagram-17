@@ -1,12 +1,11 @@
 'use strict';
 
 (function () {
-  // переменные  для данных миниатюр
-  var pictureWrapper = document.querySelector('.pictures');
 
   // переменные для формы редактирования фотографии и применения эффектов
   var SUCCESS_CODE = 200;
   var ESC_KEYCODE = 27;
+  var pictureWrapper = document.querySelector('.pictures');
   var effectLineDepth = document.querySelector('.effect-level__depth');
   var uploadFile = document.querySelector('#upload-file');
   var imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -21,6 +20,10 @@
   var imagesCopy = [];
   var imgUploadForm = document.querySelector('.img-upload__form');
   var mainElement = document.querySelector('main');
+  var uploadSelectImage = document.querySelector('#upload-select-image');
+  var effectControl = document.querySelector('.effect-level');
+  var imgFiltersContainer = document.querySelector('.img-filters__form');
+
 
   // массив css-эффектов
   var effects = {
@@ -58,9 +61,9 @@
   };
 
   window.data = {
-    pictureWrapper: pictureWrapper,
     SUCCESS_CODE: SUCCESS_CODE,
     ESC_KEYCODE: ESC_KEYCODE,
+    pictureWrapper: pictureWrapper,
     effectLineDepth: effectLineDepth,
     uploadFile: uploadFile,
     imgUploadOverlay: imgUploadOverlay,
@@ -75,6 +78,9 @@
     imagesCopy: imagesCopy,
     hashtagField: hashtagField,
     imgUploadForm: imgUploadForm,
-    mainElement: mainElement
+    mainElement: mainElement,
+    uploadSelectImage: uploadSelectImage,
+    effectControl: effectControl,
+    imgFiltersContainer: imgFiltersContainer
   };
 })();

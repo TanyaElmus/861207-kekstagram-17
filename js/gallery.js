@@ -14,6 +14,9 @@
     pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
     pictureElement.addEventListener('click', function () {
       window.fullscreen.renderCart(picture);
+      var body = document.querySelector('body');
+      body.className = 'modal-open';
+
     });
     return pictureElement;
   };

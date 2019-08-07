@@ -5,10 +5,10 @@
   var MIN_SCALE = 25;
   var MAX_SCALE = 100;
   var MAX_OFFSET = 453;
-  var effectControl = document.querySelector('.effect-level');
 
   // функция возвращающая строчку для эффекта css
   var createEffect = function (lineValue, currentFilter) {
+
     return currentFilter.effect + '(' + currentFilter.maxvalue * lineValue + currentFilter.points + ')';
   };
 
@@ -16,13 +16,17 @@
   window.data.effectsItem.addEventListener('change', function (evt) {
     var currentFilter = window.data.effects[evt.target.value];
     if (currentFilter) {
-      effectControl.classList.remove('hidden');
+      window.data.effectControl.classList.remove('hidden');
+      // cssClass = 'effects__preview--' + Object.keys(currentFilter);
+      // console.log(currentFilter);
+      // console.log(cssClass);
+      // window.data.imgUploadPreview.add();
       window.data.imgUploadPreview.style.filter = createEffect(1, currentFilter);
       window.data.effectLevelPin.style.left = MAX_OFFSET + 'px';
       window.data.effectLineDepth.style.width = MAX_OFFSET + 'px';
     } else {
       window.data.imgUploadPreview.style.filter = null;
-      effectControl.classList.add('hidden');
+      window.data.effectControl.classList.add('hidden');
     }
   });
 
@@ -55,7 +59,7 @@
   });
 
   // масштаб
-  var scale = function () {
+  var changeScale = function () {
     var img = window.data.imgUploadPreview.querySelector('img');
     var scaleSmallerButton = document.querySelector('.scale__control--smaller');
     var scaleBiggerButton = document.querySelector('.scale__control--bigger');
@@ -79,5 +83,5 @@
       img.style = 'transform: scale(' + value / 100 + ')';
     });
   };
-  scale();
+  changeScale();
 })();
