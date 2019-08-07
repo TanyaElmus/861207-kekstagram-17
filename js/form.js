@@ -42,7 +42,7 @@
   var form = window.data.imgUploadForm;
   form.addEventListener('submit', function (evt) {
     // eslint-disable-next-line no-unused-vars
-    window.upload(new FormData(form), function (response) {
+    window.upload(new FormData(form), function (_response) {
       window.data.imgUploadForm.classList.add('hidden');
     });
     evt.preventDefault();
