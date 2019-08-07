@@ -67,6 +67,7 @@
       if (evt.keyCode === window.data.ESC_KEYCODE) {
         overlay.classList.add('hidden');
       }
+
     };
     document.addEventListener('keydown', checkEscape);
     bigPicture.classList.remove('hidden');
