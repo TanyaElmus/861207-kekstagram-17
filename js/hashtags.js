@@ -4,11 +4,11 @@
 
   var buttonUpload = document.querySelector('.img-upload__submit');
   var inputHashTags = document.querySelector('.text__hashtags');
-  var inputComments = document.querySelector('.text__description');
+  // var inputComments = document.querySelector('.text__description');
   buttonUpload.addEventListener('click', function () {
     window.data.hashtagField.setCustomValidity('');
     // eslint-disable-next-line no-unused-vars
-    var commentsForUpload = inputComments.value.trim();
+    // var commentsForUpload = inputComments.value.trim();
     var hashtags = inputHashTags.value.toLowerCase().split(' ');
     var similiar = hashtags.some(function (item, index, array) {
       return array.indexOf(item) !== index;
