@@ -31,8 +31,4 @@
     var imagesCopySorted = shuffle(window.gallery.imagesCopy).slice(0, 10);
     window.gallery.createFragment(imagesCopySorted);
   }));
-
-  // window.data.effectsItem.querySelector('.button').addEventListener('change', function (evt) {
-  //   console.log(window.data.imgFiltersContainer);
-  // });
 })();

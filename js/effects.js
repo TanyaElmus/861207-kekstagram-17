@@ -6,21 +6,15 @@
   var MAX_SCALE = 100;
   var MAX_OFFSET = 453;
 
-  // функция возвращающая строчку для эффекта css
   var createEffect = function (lineValue, currentFilter) {
 
     return currentFilter.effect + '(' + currentFilter.maxvalue * lineValue + currentFilter.points + ')';
   };
 
-  // переключалка между эффектами
   window.data.effectsItem.addEventListener('change', function (evt) {
     var currentFilter = window.data.effects[evt.target.value];
     if (currentFilter) {
       window.data.effectControl.classList.remove('hidden');
-      // cssClass = 'effects__preview--' + Object.keys(currentFilter);
-      // console.log(currentFilter);
-      // console.log(cssClass);
-      // window.data.imgUploadPreview.add();
       window.data.imgUploadPreview.style.filter = createEffect(1, currentFilter);
       window.data.effectLevelPin.style.left = MAX_OFFSET + 'px';
       window.data.effectLineDepth.style.width = MAX_OFFSET + 'px';
@@ -30,7 +24,6 @@
     }
   });
 
-  // перемещение ползунка
   window.data.effectLevelPin.addEventListener('mousedown', function (evt) {
     var lineRect = window.data.effectLine.getBoundingClientRect();
     var currentFilterInput = document.querySelector('.effects__radio:checked');
@@ -58,7 +51,6 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  // масштаб
   var changeScale = function () {
     var img = window.data.imgUploadPreview.querySelector('img');
     var scaleSmallerButton = document.querySelector('.scale__control--smaller');
