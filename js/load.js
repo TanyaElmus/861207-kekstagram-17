@@ -4,6 +4,7 @@
 
   var URL_LOAD = 'https://js.dump.academy/kekstagram/data';
   var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
+  var TIMEOUT = 10000;
 
   window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
@@ -12,7 +13,6 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === window.data.SUCCESS_CODE) {
         onSuccess(xhr.response);
-        // console.log(window.data.imgFiltersContainer);
         window.data.imgFiltersContainer.classList.remove('hidden');
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -25,7 +25,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000; // 10s
+    xhr.timeout = TIMEOUT;
 
     xhr.open('GET', URL_LOAD);
     xhr.send();

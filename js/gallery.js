@@ -1,6 +1,5 @@
 'use strict';
 
-// вывод картинок, комеентарие и лайков
 (function () {
 
   var pictureTemplate = document.querySelector('#picture')
@@ -55,7 +54,6 @@
   window.data.imgFilters.classList.remove('img-filters--inactive');
   window.gallery = {
     imagesCopy: imagesCopy,
-    createFragment: createFragment,
-    errorHandler: errorHandler
+    createFragment: createFragment
   };
 })();

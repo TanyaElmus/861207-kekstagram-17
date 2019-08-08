@@ -2,7 +2,6 @@
 
 (function () {
 
-  // переменные для формы редактирования фотографии и применения эффектов
   var SUCCESS_CODE = 200;
   var ESC_KEYCODE = 27;
   var pictureWrapper = document.querySelector('.pictures');
@@ -24,8 +23,6 @@
   var effectControl = document.querySelector('.effect-level');
   var imgFiltersContainer = document.querySelector('.img-filters__form');
 
-
-  // массив css-эффектов
   var effects = {
     heat: {
       effect: 'brightness',

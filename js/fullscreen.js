@@ -7,7 +7,6 @@
   var showMoreButton = social.querySelector('.comments-loader');
   var commentTemplate = social.querySelector('.social__comment');
 
-  // вывод комментария
   var renderComment = function (comment) {
     var commentElement = commentTemplate.cloneNode(true);
     var picture = commentElement.querySelector('.social__picture');
@@ -17,7 +16,6 @@
     return commentElement;
   };
 
-  //  создание комментария
   var createComment = function (comments, commentsNumber) {
     var comment = document.createDocumentFragment();
     comments.forEach(function (item) {
@@ -29,7 +27,6 @@
     });
     social.querySelector('.social__comments').appendChild(comment);
 
-    // счетчик показа комментариев
     social.querySelector('.social__comment-count').childNodes[0].nodeValue = commentsNumber + ' из ';
   };
 
@@ -45,7 +42,6 @@
     };
   };
 
-  //  вывод текстовых данных(лайков, количества комментариев, описания, картинки
   var renderCart = function (image) {
     bigPicture.querySelector('img').src = image.url;
     social.querySelector('.likes-count').textContent = image.likes;
@@ -57,7 +53,6 @@
       showMoreComments();
     });
 
-    // кнопка выходы из полноэкранного просмотра
     var cancelButton = bigPicture.querySelector('#picture-cancel');
     var overlay = document.querySelector('.overlay');
     cancelButton.addEventListener('click', function () {
